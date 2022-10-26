@@ -38,13 +38,24 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required',
+            'title' => 'required|max:255',
             'description' => 'required',
-            'price' => 'required',
+            'price' => 'required|numeric',
+            'image' => 'required|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-        Product::create($request->all());
+        $input = $request->all();
 
-        return redirect()->route('products.index');
+        if ($image = $request->file('image')) {
+            $destinationPath = 'images/';
+            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+            $image->move($destinationPath, $profileImage);
+            $input['image'] = "$profileImage";
+        }
+
+        Product::create($input);
+
+        return redirect()->route('products.index')
+            ->with('success','Product created successfully.');
     }
 
     /**
@@ -79,13 +90,23 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        $data = $request->validate([
+        $request->validate([
             'title' => 'required|max:255',
             'description' => 'required',
             'price' => 'required|numeric',
-        ]);
-        $product->update($data);
 
+        ]);
+       $input = $request->all();
+
+        if ($image = $request->file('image')) {
+        $destinationPath = 'images/';
+        $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+        $image->move($destinationPath, $profileImage);
+        $input['image'] = "$profileImage";
+    }else{
+        unset($input['image']);
+    }
+        $product->update($input);
 
         return redirect()->route('products.index')
             ->with('success', 'Product updated successfully');

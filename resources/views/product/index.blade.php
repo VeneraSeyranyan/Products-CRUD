@@ -8,7 +8,7 @@ $i = 0;
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>Products CRUD</h2>
+                <h2>Products CRUD with Image Upload</h2>
             </div>
             <div class="pull-right">
                 <a class="btn btn-success" href="{{ route('products.create') }}" style="background: #3e681ef0;"> Create
@@ -29,8 +29,8 @@ $i = 0;
             <th>Title</th>
             <th>Description</th>
             <th>Price</th>
+            <th>Image</th>
             <th width="280px">Action</th>
-
         </tr>
         @foreach ($products as $product)
             <tr>
@@ -38,6 +38,7 @@ $i = 0;
                 <td>{{ $product->title}}</td>
                 <td>{{ $product->description}}</td>
                 <td>{{ $product->price}}</td>
+                <td><img src="/images/{{ $product->image }}" width="100px"></td>
                 <td>
                     <form action="{{ route('products.destroy',$product->id) }}" method="POST">
 
@@ -46,7 +47,6 @@ $i = 0;
 
                         <a class="btn btn-primary" style="background: #3e681ef0;"
                            href="{{ route('products.edit',['product'=>$product->id]) }}">Edit</a>
-
                         @csrf
                         @method('DELETE')
 

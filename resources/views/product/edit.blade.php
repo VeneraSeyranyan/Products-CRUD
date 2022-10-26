@@ -20,7 +20,7 @@
         </div>
     @endif
 
-    <form action="{{ route('products.update',$product->id) }}" method="POST">
+    <form action="{{ route('products.update',$product->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
@@ -43,7 +43,13 @@
                     <textarea class="form-control" style="height:100px;width: auto" name="description" placeholder="Description">{{ $product->description }}</textarea>
                 </div>
             </div>
-
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                    <strong>Image:</strong>
+                    <input type="file" name="image" class="form-control" style="height:35px;width:230px" placeholder="image">
+                    <img src="/images/{{ $product->image }}" width="300px">
+                </div>
+            </div>
             <div class="pull-right" >
                 <a class="btn btn-primary" href="{{ route('products.index') }}" style="width: 100px;top: 130px;background: #3e681ef0;"> Back</a>
             </div>

@@ -47,7 +47,7 @@
                 <div class="form-group">
                     <strong>Image:</strong>
                     <input type="file" name="image" class="form-control" style="height:35px;width:230px" placeholder="image">
-                    <img src="/images/{{ $product->image }}" width="300px">
+                    <img src="/storage/{{ $product->image }}" width="300px">
                 </div>
             </div>
             <div class="pull-right" >

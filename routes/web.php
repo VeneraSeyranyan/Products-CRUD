@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 //ավելացնում ենք ,որպեսզի գտնի ProductController
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,11 @@ use App\Http\Controllers\UserController;
 
 Route::get('/', function () {   return view('welcome');});
 Route::resource('products', ProductController::class);
+Route::view('/order/{product_id}', 'product.order')->name('products.order');
+Route::resource('orders', OrderController::class);
+
+
+//Route::post('/orders/order',[ProductController::class,'addOrder'])->name('products.orderAdd');
 /*
 Route::get('/users',[UserController::class, 'index']);
 Route::get('/products',[ProductController::class, 'index']);

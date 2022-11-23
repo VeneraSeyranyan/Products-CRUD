@@ -21,7 +21,7 @@ class OrderShipped extends Mailable
     /**
      * Создать экземпляр нового сообщения.
      *
-     * @param  \App\Models\Order  $order
+     * @param  \App\Models\Orders  $order
      * @return void
      */
     public function __construct(Order $order)

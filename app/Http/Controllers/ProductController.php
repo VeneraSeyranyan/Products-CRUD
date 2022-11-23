@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Orders;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -15,51 +16,43 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::latest()->get();
+
+        $products = Product::get();
         return view('product.index', compact('products'));
     }
-
     /**
      * Show the form for creating a new resource.
-     *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
         return view('product.create');
     }
-
     /**
      * Store a newly created resource in storage.
-     *
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $validatedData = $request->validate([
             'title' => 'required|max:255',
             'description' => 'required',
             'price' => 'required|numeric',
             'image' => 'required|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-
-        $input = $request->all();
+      //  $input = $request->all();
         if ($image = $request->file('image')) {
             $fileName = time() . "_" . $image->getClientOriginalName();
             $path = $image->storeAs("images", $fileName, "public");
-            $input['image'] = $path;
+            $validatedData['image'] = $path;
         }
-
-        Product::create($input);
-
+        Product::create( $validatedData);
         return redirect()->route('products.index')
             ->with('success', 'Product created successfully.');
     }
-
     /**
      * Display the specified resource.
-     *
      * @param int $id
      * @return \Illuminate\Http\Response
      */
@@ -89,21 +82,21 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        $request->validate([
+        $validatedData = $request->validate([
             'title' => 'required|max:255',
             'description' => 'required',
             'price' => 'required|numeric',
 
         ]);
-        $input = $request->all();
+       // $input = $request->all();
         if ($image = $request->file('image')) {
             $fileName = time() . "_" . $image->getClientOriginalName();
             $path = $image->storeAs("images", $fileName, "public");
-            $input['image'] = $path;
+            $validatedData['image'] = $path;
         } else {
-            unset($input['image']);
+            unset( $validatedData['image']);
         }
-        $product->update($input);
+        $product->update($validatedData);
 
         return redirect()->route('products.index')
             ->with('success', 'Product updated successfully');

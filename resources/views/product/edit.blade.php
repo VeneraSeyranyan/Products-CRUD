@@ -54,7 +54,7 @@
                 <a class="btn btn-primary" href="{{ route('products.index') }}" style="width: 100px;top: 130px;background: #3e681ef0;"> Back</a>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 text-center" style="width: 100px;">
-                <button type="submit" class="btn btn-primary" style="background: #3e681ef0;">Edit</button>
+                <button type="submit" class="btn btn-primary" style="background: #3e681ef0;">Submit</button>
             </div>
         </div>
 

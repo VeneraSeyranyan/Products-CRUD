@@ -1,18 +1,17 @@
-
 <?php
 $i = 0;
 ?>
-@extends('product.layout')
+@extends('order.layout')
 
 @section('content')
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>Products CRUD with Image Upload</h2>
+                <h2>Orders CRUD </h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-success" href="{{ route('products.create') }}" style="background: #3e681ef0;"> Create
-                    New Product</a>
+                <a class="btn btn-success" href="{{ route('orders.create') }}" style="background: #3e681ef0;"> Create
+                    New Order</a>
             </div>
         </div>
     </div>
@@ -26,29 +25,25 @@ $i = 0;
     <table class="table table-bordered" style="background: #c5d78f;">
         <tr style=" font-weight: bold;font-size:x-large">
             <th>ID</th>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Price</th>
-            <th>Image</th>
+            <th>Product_Name</th>
+            <th>Qty</th>
+            <th>order_date_time</th>
             <th width="280px">Action</th>
         </tr>
-        @foreach ($products as $product)
+        @foreach ($orders as $order)
             <tr>
                 <td>{{ ++$i }}</td>
-                <td>{{ $product->title}}</td>
-                <td>{{ $product->description}}</td>
-                <td>{{ $product->price}}</td>
-                <td><img src="/storage/{{ $product->image }}" width="100px"></td>
+                <td>{{ $order->product_title}}</td>
+                <td>{{ $order->qty}}</td>
+                <td>{{ $order->order_date_time}}</td>
                 <td>
-                    <form action="{{ route('products.destroy',$product->id) }}" method="POST">
+                    <form action="{{ route('orders.destroy',$order->id) }}" method="POST">
 
                         <a class="btn btn-info" style="background: #3e681ef0;"
-                           href="{{ route('products.show',$product->id) }}">Show</a>
+                           href="{{ route('orders.show',$order->id) }}">Show</a>
 
                         <a class="btn btn-primary" style="background: #3e681ef0;"
-                           href="{{ route('products.edit',['product'=>$product->id]) }}">Edit</a>
-                        <a class="btn btn-primary" style="background: #3e681ef0;"
-                           href="{{ route('products.order',['product_id' => $product->id]) }}">Order</a>
+                           href="{{ route('orders.edit',['order'=>$order->id]) }}">Edit</a>
                         @csrf
                         @method('DELETE')
 
